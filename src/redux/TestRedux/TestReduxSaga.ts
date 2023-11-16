@@ -30,7 +30,7 @@ function* readTestReduxSaga(data: {
     const response: any = yield API.testReduxAPI(data.payload.payloadData);
     yield put({
       type: TEST_REDUX_SUCCESS,
-      payload: response.data.message,
+      payload: response.data,
     });
   } catch (error) {
     yield put({
