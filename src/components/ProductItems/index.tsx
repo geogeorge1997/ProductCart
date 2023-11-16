@@ -9,6 +9,13 @@ import {
   View,
 } from 'react-native';
 
+import {useNavigation} from '@react-navigation/native';
+import {type StackNavigationProp} from '@react-navigation/stack';
+
+import {type RootStackParamList} from '../../navigators/StackNavigator/type';
+
+type homeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
+
 type ItemData = {
   id: string;
   title: string;
@@ -75,6 +82,7 @@ const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
 );
 
 const ProductItemList = () => {
+  const navigation = useNavigation<homeScreenProp>();
   const [selectedId, setSelectedId] = useState<string>();
 
   const renderItem = ({item}: {item: ItemData}) => {
@@ -84,7 +92,10 @@ const ProductItemList = () => {
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.id)}
+        onPress={() => {
+          navigation.navigate('Product');
+          return setSelectedId(item.id);
+        }}
         backgroundColor={backgroundColor}
         textColor={color}
       />
