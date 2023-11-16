@@ -1,20 +1,34 @@
 /* eslint-disable react/react-in-jsx-scope */
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, SafeAreaView} from 'react-native';
 import {Text} from 'react-native-paper';
+
+import ProductItems from '../../components/ProductItems';
+
+import * as CONSTANTS from '../../utils/contants';
 
 function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text variant="headlineMedium">Home!</Text>
-    </View>
+    <SafeAreaView style={styles.safeAreaViewStyle}>
+      <View style={styles.topContainer} />
+      <View style={styles.bannerContainer} />
+      <ProductItems />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeAreaViewStyle: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+  topContainer: {
+    backgroundColor: CONSTANTS.COLORS.SYSTEMS1,
+    height: '34%',
+    width: '100%',
+  },
+  bannerContainer: {
+    // backgroundColor: CONSTANTS.COLORS.SYSTEMS1,
+    height: '25%',
+    width: '100%',
   },
 });
 
