@@ -1,21 +1,32 @@
 /* eslint-disable react/react-in-jsx-scope */
-import {StyleSheet, View} from 'react-native';
-import {Text} from 'react-native-paper';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
+
+import SelectedItems from '../../components/SelectedItems';
 
 function ShoppingScreen() {
   return (
-    <View style={styles.container}>
-      <Text variant="headlineMedium">Shppoing!</Text>
-    </View>
+    <SafeAreaView style={styles.safeAreaViewStyle}>
+      <View style={styles.selectItemsContainer}>
+        <SelectedItems />
+      </View>
+      <View style={styles.shoppingDetailsContainer} />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeAreaViewStyle: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
+  selectItemsContainer: {
+    height: '70%',
+    width: '100%',
+  },
+  shoppingDetailsContainer: {
+    height: '25%',
+    width: '100%',
+    backgroundColor: 'red',
+  }
 });
 
 export default ShoppingScreen;
