@@ -14,6 +14,9 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Navigator from './src/navigators/StackNavigator';
 import {NavigationContainer} from '@react-navigation/native';
+
+import {Provider} from 'react-redux';
+import store from './src/redux/store';
 // type SectionProps = PropsWithChildren<{
 //   title: string;
 // }>;
@@ -53,9 +56,11 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaProvider style={backgroundStyle}>
-      <NavigationContainer>
-        <Navigator />
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Navigator />
+        </NavigationContainer>
+      </Provider>
     </SafeAreaProvider>
   );
 }
