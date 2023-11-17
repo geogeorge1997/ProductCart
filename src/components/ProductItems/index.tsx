@@ -116,7 +116,7 @@ const ProductItemList = () => {
       <Item
         item={item}
         onPress={() => {
-          navigation.navigate('Product');
+          navigation.navigate('Product', {item: item});
         }}
         dispatch={dispatch}
         favItems={favItems}

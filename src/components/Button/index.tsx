@@ -10,7 +10,8 @@ import * as STYLES from '../../utils/styles';
 
 export interface AnswerBoxProps {
   disabled: boolean | undefined;
-  colors: any;
+  backgroundColor: string;
+  textColor: string;
   text: string;
   onPress: () => void;
 }
@@ -18,20 +19,21 @@ export interface AnswerBoxProps {
 // istanbul ignore next
 const Button: React.FC<AnswerBoxProps> = ({
   disabled = false,
-  colors,
+  backgroundColor,
+  textColor,
   text,
   onPress,
 }) => {
   return (
     <PaperButton
       disabled={disabled}
-      mode="contained-tonal"
-      textColor={colors?.ELEVATION_TEXT}
-      labelStyle={{fontSize: 18, width: `80%`}}
+      mode="contained"
+      textColor={textColor}
+      labelStyle={{fontSize: 18}}
       style={{
         ...styles.buttonStyle,
-        backgroundColor: 'red',
-        borderColor: 'black',
+        backgroundColor: backgroundColor,
+        borderColor: backgroundColor,
       }}
       onPress={() => {
         onPress();
@@ -45,7 +47,6 @@ const styles = StyleSheet.create({
   buttonStyle: {
     ...STYLES.BORDER_STYLE,
     ...STYLES.FLEX_ROW_CENTER,
-    width: '50%',
     // minWidth: CONSTANTS.HEIGHT_WIDTH.Pix50
   },
 });

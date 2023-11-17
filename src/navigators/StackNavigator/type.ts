@@ -1,5 +1,5 @@
 export type RootStackParamList = {
   Home: undefined;
-  Product: undefined;
+  Product: any;
   Shopping: undefined;
 };
