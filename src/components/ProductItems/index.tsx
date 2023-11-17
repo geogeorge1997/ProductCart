@@ -150,6 +150,7 @@ const ProductItemList = () => {
         numColumns={2}
         renderItem={renderItem}
         keyExtractor={item => String(item.id)}
+        contentContainerStyle={{paddingBottom: 180}}
       />
     </SafeAreaView>
   );
