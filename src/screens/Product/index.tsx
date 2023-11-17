@@ -118,6 +118,26 @@ function ProductScreen() {
         <RatingContainer />
       </View>
       <View style={styles.imageBoxContainer}>
+        <IconButton
+          style={styles.favIcon}
+          icon="camera"
+          iconColor={favItems[item.id] ? 'red' : 'blue'}
+          size={20}
+          onPress={() => {
+            console.log('favItems[item.id] - ', favItems[item.id]);
+            let favItemsCopy = favItems;
+            const res = favItems[item.id];
+            if (res) {
+              delete favItemsCopy[item.id];
+            } else {
+              favItemsCopy[item.id] = true;
+            }
+            dispatch({
+              type: UserCartActionType.ADD_FAV_REQUEST,
+              payload: {payloadData: favItemsCopy},
+            });
+          }}
+        />
         <ProductImages imageList={item.images} />
       </View>
       <View style={styles.priceBoxContainer}>
@@ -247,6 +267,15 @@ const styles = StyleSheet.create({
   star: {
     width: 40,
     height: 40,
+  },
+  favIcon: {
+    margin: 5,
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    width: 25,
+    height: 25,
+    zIndex: 1,
   },
 });
 

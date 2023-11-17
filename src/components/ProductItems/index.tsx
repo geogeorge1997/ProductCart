@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -58,6 +58,9 @@ const Item = ({item, onPress, dispatch, favItems, cartItems}: ItemProps) => (
             favItemsCopy[item.id] = true;
           }
           dispatch({
+            type: UserCartActionType.USER_CART_LOADING_REQUEST,
+          });
+          dispatch({
             type: UserCartActionType.ADD_FAV_REQUEST,
             payload: {payloadData: favItemsCopy},
           });
@@ -108,6 +111,19 @@ const ProductItemList = () => {
   const cartItems: any = useSelector(
     (state: any) => state.userCartReducer.cartSuccess,
   );
+
+  const isUserCartLoading: any = useSelector(
+    (state: any) => state.userCartReducer.isUserCartLoading,
+  );
+
+  console.log('cartItems - ', cartItems);
+
+  console.log('isUserCartLoading - ', isUserCartLoading);
+
+  useEffect(() => {
+    console.log('isUserCartLoading - ', isUserCartLoading);
+    console.log('favItems - ', favItems);
+  }, [isUserCartLoading]);
 
   const navigation = useNavigation<homeScreenProp>();
 

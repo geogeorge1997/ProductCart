@@ -22,6 +22,8 @@ import {
   REMOVE_CART_REQUEST,
   REMOVE_CART_SUCCESS,
   REMOVE_CART_FAILURE,
+  USER_CART_LOADING_REQUEST,
+  USER_CART_LOADING,
 } from './UserCartActionTypes';
 
 // import * as API from '../../network/API';
@@ -89,7 +91,7 @@ function* addCartSaga(data: {
 > {
   try {
     const payload = data.payload.payloadData;
-    console.log('payload - ', payload);
+    // console.log('payload - ', payload);
     yield put({
       type: ADD_CART_SUCCESS,
       payload: payload,
@@ -130,4 +132,19 @@ function* removeCartSaga(data: {
 
 export function* watchRemoveCartSaga(): any {
   yield takeEvery(REMOVE_CART_REQUEST, removeCartSaga);
+}
+
+function* userCartLoaderSaga(): Generator<
+  Promise<AxiosResponse<any, any>> | PutEffect<AnyAction>,
+  void,
+  void
+> {
+  yield put({
+    type: USER_CART_LOADING,
+    payload: true,
+  });
+}
+
+export function* watchUserCartLoaderSaga(): any {
+  yield takeEvery(USER_CART_LOADING_REQUEST, userCartLoaderSaga);
 }

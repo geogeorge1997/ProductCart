@@ -8,6 +8,7 @@ import {
   ADD_CART_FAILURE,
   // REMOVE_CART_SUCCESS,
   // REMOVE_CART_FAILURE,
+  USER_CART_LOADING,
 } from './UserCartActionTypes';
 
 // initializing state
@@ -16,6 +17,7 @@ const initialState = {
   favFailure: undefined,
   cartSuccess: {},
   cartFailure: undefined,
+  isUserCartLoading: true,
 };
 
 // istanbul ignore next
@@ -26,26 +28,31 @@ const userCartReducer = (state = initialState, action: any): any => {
         ...state,
         favSuccess: action.payload,
         favFailure: undefined,
-        // testReduxFailure: false
+        // isUserCartLoading: false,
       };
     case ADD_FAV_FAILURE:
       return {
         ...state,
         favFailure: action.payload,
-        // testReduxFailure: false
+        isUserCartLoading: false,
       };
     case ADD_CART_SUCCESS:
       return {
         ...state,
         cartSuccess: action.payload,
         cartFailure: undefined,
-        // testReduxFailure: false
+        isUserCartLoading: false,
       };
     case ADD_CART_FAILURE:
       return {
         ...state,
         cartFailure: action.payload,
-        // testReduxFailure: false
+        isUserCartLoading: false,
+      };
+    case USER_CART_LOADING:
+      return {
+        ...state,
+        isUserCartLoading: true,
       };
     default:
       return state;
