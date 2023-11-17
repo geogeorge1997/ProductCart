@@ -12,9 +12,9 @@ import {
 
 // initializing state
 const initialState = {
-  favSuccess: [],
+  favSuccess: {},
   favFailure: undefined,
-  cartSuccess: [],
+  cartSuccess: {},
   cartFailure: undefined,
 };
 

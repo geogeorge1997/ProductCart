@@ -36,11 +36,10 @@ function* addFavSaga(data: {
   void
 > {
   try {
-    // const response: any = yield API.testReduxAPI(data.payload.payloadData);
-    console.log('data.payload.payloadData - ', data.payload.payloadData);
+    const payload = data.payload.payloadData;
     yield put({
       type: ADD_FAV_SUCCESS,
-      payload: 'response.data',
+      payload: payload,
     });
   } catch (error) {
     yield put({
@@ -63,8 +62,7 @@ function* removeFavSaga(data: {
   void
 > {
   try {
-    // const response: any = yield API.testReduxAPI(data.payload.payloadData);
-    console.log('data.payload.payloadData - ', data.payload.payloadData);
+    console.log('data - ', data);
     yield put({
       type: REMOVE_FAV_SUCCESS,
       payload: 'response.data',
@@ -90,11 +88,11 @@ function* addCartSaga(data: {
   void
 > {
   try {
-    // const response: any = yield API.testReduxAPI(data.payload.payloadData);
-    console.log('data.payload.payloadData - ', data.payload.payloadData);
+    const payload = data.payload.payloadData;
+    console.log('payload - ', payload);
     yield put({
       type: ADD_CART_SUCCESS,
-      payload: 'response.data',
+      payload: payload,
     });
   } catch (error) {
     yield put({
@@ -117,8 +115,7 @@ function* removeCartSaga(data: {
   void
 > {
   try {
-    // const response: any = yield API.testReduxAPI(data.payload.payloadData);
-    console.log('data.payload.payloadData - ', data.payload.payloadData);
+    console.log('data - ', data);
     yield put({
       type: REMOVE_CART_SUCCESS,
       payload: 'response.data',

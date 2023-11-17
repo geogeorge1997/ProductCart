@@ -9,11 +9,6 @@ import {useDispatch, useSelector} from 'react-redux';
 
 function HomeScreen() {
   const dispatch = useDispatch();
-  const testReduxReducerDatas: any = useSelector(
-    (state: any) => state.testReduxReducer,
-  );
-
-  console.log('testReduxReducerDatas - ', testReduxReducerDatas);
 
   useEffect(() => {
     dispatch({
@@ -50,6 +45,8 @@ const styles = StyleSheet.create({
     // backgroundColor: CONSTANTS.COLORS.SYSTEMS1,
     height: '40%',
     width: '100%',
+    display: 'flex',
+    alignItems: 'stretch',
   },
 });
 
