@@ -17,6 +17,16 @@ function ProductScreen() {
   const navigation = useNavigation<productScreenProp>();
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
+      <View style={styles.headerContainer}>
+        <Button
+          disabled={false}
+          colors={CONSTANTS.COLORS}
+          text={'back'}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+      </View>
       <View style={styles.titleBoxContainer}>
         <Text>Title</Text>
       </View>
@@ -55,6 +65,11 @@ function ProductScreen() {
 const styles = StyleSheet.create({
   safeAreaViewStyle: {
     flex: 1,
+  },
+  headerContainer: {
+    height: '10%',
+    width: '100%',
+    backgroundColor: 'blue',
   },
   titleBoxContainer: {
     height: '20%',

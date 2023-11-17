@@ -11,9 +11,21 @@ const Stack = createNativeStackNavigator();
 function MyStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Product" component={Product} />
-      <Stack.Screen name="Shopping" component={Shopping} />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="Home"
+        component={Home}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="Product"
+        component={Product}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="Shopping"
+        component={Shopping}
+      />
     </Stack.Navigator>
   );
 }

@@ -25,7 +25,9 @@ function HomeScreen() {
     <SafeAreaView style={styles.safeAreaViewStyle}>
       <View style={styles.topContainer} />
       <View style={styles.bannerContainer} />
-      <ProductItems />
+      <View style={styles.productContainer}>
+        <ProductItems />
+      </View>
     </SafeAreaView>
   );
 }
@@ -42,6 +44,11 @@ const styles = StyleSheet.create({
   bannerContainer: {
     // backgroundColor: CONSTANTS.COLORS.SYSTEMS1,
     height: '25%',
+    width: '100%',
+  },
+  productContainer: {
+    // backgroundColor: CONSTANTS.COLORS.SYSTEMS1,
+    height: '40%',
     width: '100%',
   },
 });
