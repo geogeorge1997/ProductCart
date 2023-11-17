@@ -6,8 +6,17 @@ import {all, fork} from 'redux-saga/effects';
 import testReduxReducer from './TestRedux/TestReduxReducer';
 import {watchReadTestReduxSaga} from './TestRedux/TestReduxSaga';
 
+import userCartReducer from './UserCart/UserCartReducer';
+import {
+  watchAddFavSaga,
+  watchAddCartSaga,
+  watchRemoveCartSaga,
+  watchRemoveFavSaga,
+} from './UserCart/UserCartSaga';
+
 const rootReducer = combineReducers({
   testReduxReducer,
+  userCartReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -20,7 +29,13 @@ const store = createStore(
 );
 
 export function* rootSaga(): any {
-  yield all([fork(watchReadTestReduxSaga)]);
+  yield all([
+    fork(watchReadTestReduxSaga),
+    fork(watchAddCartSaga),
+    fork(watchAddFavSaga),
+    fork(watchRemoveCartSaga),
+    fork(watchRemoveFavSaga),
+  ]);
 }
 
 sagaMiddleware.run(rootSaga);
