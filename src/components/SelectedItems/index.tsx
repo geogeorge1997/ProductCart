@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,10 +8,12 @@ import {
   FlatList,
 } from 'react-native';
 
+import {useDispatch, useSelector} from 'react-redux';
+
 const ProductCard = ({item, onIncrement, onDecrement}) => {
   return (
     <View style={styles.productCard}>
-      <Image source={{uri: item.image}} style={styles.productImage} />
+      <Image source={{uri: item.thumbnail}} style={styles.productImage} />
       <View style={styles.productInfo}>
         <Text style={styles.productName}>{item.name}</Text>
         <Text style={styles.productPrice}>${item.price.toFixed(2)} </Text>
@@ -20,7 +22,7 @@ const ProductCard = ({item, onIncrement, onDecrement}) => {
         <TouchableOpacity style={styles.amountButton} onPress={onDecrement}>
           <Text style={styles.amountButtonText}>-</Text>
         </TouchableOpacity>
-        <Text style={styles.amountText}>{item.amount}</Text>
+        <Text style={styles.amountText}>{item.count}</Text>
         <TouchableOpacity style={styles.amountButton} onPress={onIncrement}>
           <Text style={styles.amountButtonText}>+</Text>
         </TouchableOpacity>
@@ -30,95 +32,30 @@ const ProductCard = ({item, onIncrement, onDecrement}) => {
 };
 
 const SelectedItems = () => {
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: 'Hamburger',
-      description: 'Juicy beef patty on a fresh bun with all the fixings',
-      price: 5.99,
-      image: 'https://source.unsplash.com/900x900/?burger',
-      amount: 0,
-    },
-    {
-      id: 2,
-      name: 'Pizza',
-      description: 'Freshly made pizza with your choice of toppings',
-      price: 9.99,
-      image: 'https://source.unsplash.com/900x900/?pizza',
-      amount: 0,
-    },
-    {
-      id: 3,
-      name: 'Salad',
-      description: 'Fresh greens and veggies with your choice of dressing',
-      price: 4.99,
-      image: 'https://source.unsplash.com/900x900/?salad',
-      amount: 0,
-    },
-    {
-      id: 4,
-      name: 'Fries',
-      description: 'Crispy and delicious, perfect as a side or on their own',
-      price: 2.99,
-      image: 'https://source.unsplash.com/900x900/?fries',
-      amount: 0,
-    },
-    {
-      id: 5,
-      name: 'Ice Cream',
-      description: 'Rich and creamy, the perfect dessert any time of day',
-      price: 3.99,
-      image: 'https://source.unsplash.com/900x900/?icecream',
-      amount: 0,
-    },
+  const dispatch = useDispatch();
 
-    {
-      id: 6,
-      name: 'Big Hamburger',
-      description: 'Juicy beef patty on a fresh bun with all the fixings',
-      price: 5.99,
-      image: 'https://source.unsplash.com/900x900/?burger',
-      amount: 0,
-    },
-    {
-      id: 7,
-      name: 'Big Pizza ',
-      description: 'Freshly made pizza with your choice of toppings',
-      price: 9.99,
-      image: 'https://source.unsplash.com/900x900/?pizza',
-      amount: 0,
-    },
-    {
-      id: 8,
-      name: 'Big Salad',
-      description: 'Fresh greens and veggies with your choice of dressing',
-      price: 4.99,
-      image: 'https://source.unsplash.com/900x900/?salad',
-      amount: 0,
-    },
-    {
-      id: 9,
-      name: 'Big Fries',
-      description: 'Crispy and delicious, perfect as a side or on their own',
-      price: 2.99,
-      image: 'https://source.unsplash.com/900x900/?fries',
-      amount: 0,
-    },
-    {
-      id: 10,
-      name: 'Big Ice Cream',
-      description: 'Rich and creamy, the perfect dessert any time of day',
-      price: 3.99,
-      image: 'https://source.unsplash.com/900x900/?icecream',
-      amount: 0,
-    },
-  ]);
+  const cartItems: any = useSelector(
+    (state: any) => state.userCartReducer.cartSuccess,
+  );
+
+  const [products, setProducts] = useState<any>([]);
+
+  useEffect(() => {
+    const array = [];
+    for (const key in cartItems) {
+      if (cartItems.hasOwnProperty(key)) {
+        console.log(cartItems[key]);
+        array.push(cartItems[key]);
+      }
+    }
+    setProducts(array);
+  }, []);
 
   const handleIncrement = item => {
     setProducts(
       products.map(product =>
         product.id === item.id
-          ? {...product, amount: product.amount + 1}
+          ? {...product, count: product.count + 1}
           : product,
       ),
     );
@@ -128,7 +65,7 @@ const SelectedItems = () => {
     setProducts(
       products.map(product =>
         product.id === item.id
-          ? {...product, amount: Math.max(0, product.amount - 1)}
+          ? {...product, count: Math.max(0, product.count - 1)}
           : product,
       ),
     );
@@ -149,7 +86,7 @@ const SelectedItems = () => {
         style={styles.productList}
         renderItem={renderProductItem}
         keyExtractor={item => item.id.toString()}
-        contentContainerStyle={{paddingHorizontal: 16, paddingBottom: 100}}
+        contentContainerStyle={{paddingHorizontal: 16, paddingBottom: 20}}
       />
     </View>
   );
