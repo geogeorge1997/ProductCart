@@ -12,6 +12,8 @@ import {type StackNavigationProp} from '@react-navigation/stack';
 import {type RootStackParamList} from '../../navigators/StackNavigator/type';
 import Text from '../../components/Text';
 import ProductImages from '../../components/ProductImages';
+import * as UserCartActionType from '../../redux/UserCart/UserCartActionTypes';
+import {useDispatch, useSelector} from 'react-redux';
 
 type productScreenProp = StackNavigationProp<RootStackParamList, 'Product'>;
 
@@ -78,6 +80,16 @@ function ProductScreen() {
 
   const item = route.params?.item;
 
+  const dispatch = useDispatch();
+
+  const favItems: any = useSelector(
+    (state: any) => state.userCartReducer.favSuccess,
+  );
+
+  const cartItems: any = useSelector(
+    (state: any) => state.userCartReducer.cartSuccess,
+  );
+
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
       <View style={styles.headerContainer}>
@@ -131,7 +143,20 @@ function ProductScreen() {
           <Button
             disabled={false}
             text={'Add To Cart'}
-            onPress={() => {}}
+            onPress={() => {
+              let cartItemsCopy = cartItems;
+              const res = cartItems[item.id];
+              if (res) {
+                cartItemsCopy[item.id].count += 1;
+              } else {
+                cartItemsCopy[item.id] = item;
+                cartItemsCopy[item.id].count = 1;
+              }
+              dispatch({
+                type: UserCartActionType.ADD_CART_REQUEST,
+                payload: {payloadData: cartItemsCopy},
+              });
+            }}
             backgroundColor={CONSTANTS.COLORS.BLACK1}
             textColor={CONSTANTS.COLORS.SYSTEMS1}
           />
@@ -176,7 +201,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignContent: 'center',
+    alignItems: 'center',
   },
   titleBoxContainer: {
     height: '20%',
