@@ -13,6 +13,7 @@ export interface AnswerBoxProps {
   backgroundColor: string;
   textColor: string;
   text: string;
+  style: any;
   onPress: () => void;
 }
 
@@ -22,6 +23,7 @@ const Button: React.FC<AnswerBoxProps> = ({
   backgroundColor,
   textColor,
   text,
+  style,
   onPress,
 }) => {
   return (
@@ -33,7 +35,7 @@ const Button: React.FC<AnswerBoxProps> = ({
       style={{
         ...styles.buttonStyle,
         backgroundColor: backgroundColor,
-        borderColor: backgroundColor,
+        ...style,
       }}
       onPress={() => {
         onPress();
@@ -45,9 +47,7 @@ const Button: React.FC<AnswerBoxProps> = ({
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    ...STYLES.BORDER_STYLE,
     ...STYLES.FLEX_ROW_CENTER,
-    // minWidth: CONSTANTS.HEIGHT_WIDTH.Pix50
   },
 });
 
