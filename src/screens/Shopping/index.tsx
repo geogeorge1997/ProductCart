@@ -22,9 +22,9 @@ function ShoppingScreen() {
       <View style={styles.headerContainer}>
         <IconButton
           // style={styles.favIcon}
-          icon="camera"
-          iconColor={'red'}
-          size={20}
+          icon="arrow-left"
+          iconColor={CONSTANTS.COLORS.BLACK100}
+          size={40}
           onPress={() => {
             navigation.goBack();
           }}
@@ -35,23 +35,84 @@ function ShoppingScreen() {
       </View>
       <View style={styles.shoppingDetailsContainer}>
         <View style={styles.shoppingDetailsTextLineContainer}>
-          <Text variant={''} style={{}} text={'undefined'} numberOfLines={1} />
-          <Text variant={''} style={{}} text={'undefined'} numberOfLines={1} />
+          <Text
+            variant={''}
+            style={{
+              color: CONSTANTS.COLORS.BLACK45,
+              fontFamily: 'manrope',
+              fontSize: 14,
+              fontWeight: 'normal',
+            }}
+            text={'Subtotal'}
+            numberOfLines={1}
+          />
+          <Text
+            variant={''}
+            style={{
+              color: CONSTANTS.COLORS.BLACK100,
+              fontFamily: 'manrope',
+              fontSize: 14,
+              fontWeight: 'normal',
+            }}
+            text={'undefined'}
+            numberOfLines={1}
+          />
         </View>
         <View style={styles.shoppingDetailsTextLineContainer}>
-          <Text variant={''} style={{}} text={'undefined'} numberOfLines={1} />
-          <Text variant={''} style={{}} text={'undefined'} numberOfLines={1} />
+          <Text
+            variant={''}
+            style={{
+              color: CONSTANTS.COLORS.BLACK45,
+              fontFamily: 'manrope',
+              fontSize: 14,
+              fontWeight: 'normal',
+            }}
+            text={'Delivery'}
+            numberOfLines={1}
+          />
+          <Text
+            variant={''}
+            style={{
+              color: CONSTANTS.COLORS.BLACK100,
+              fontFamily: 'manrope',
+              fontSize: 14,
+              fontWeight: 'normal',
+            }}
+            text={'undefined'}
+            numberOfLines={1}
+          />
         </View>
         <View style={styles.shoppingDetailsTextLineContainer}>
-          <Text variant={''} style={{}} text={'undefined'} numberOfLines={1} />
-          <Text variant={''} style={{}} text={'undefined'} numberOfLines={1} />
+          <Text
+            variant={''}
+            style={{
+              color: CONSTANTS.COLORS.BLACK45,
+              fontFamily: 'manrope',
+              fontSize: 14,
+              fontWeight: 'normal',
+            }}
+            text={'Total'}
+            numberOfLines={1}
+          />
+          <Text
+            variant={''}
+            style={{
+              color: CONSTANTS.COLORS.BLACK100,
+              fontFamily: 'manrope',
+              fontSize: 14,
+              fontWeight: 'normal',
+            }}
+            text={'undefined'}
+            numberOfLines={1}
+          />
         </View>
         <Button
-          disabled={undefined}
+          disabled={false}
           backgroundColor={CONSTANTS.COLORS.SYSTEMS1}
           textColor={CONSTANTS.COLORS.BLACK1}
           text={'Proceed To Checkout'}
           onPress={() => {}}
+          style={undefined}
         />
       </View>
     </SafeAreaView>
@@ -61,27 +122,33 @@ function ShoppingScreen() {
 const styles = StyleSheet.create({
   safeAreaViewStyle: {
     flex: 1,
+    backgroundColor: CONSTANTS.COLORS.BLACK1,
   },
   headerContainer: {
-    height: '10%',
+    height: '8%',
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'blue',
+    paddingLeft: 20,
   },
   selectItemsContainer: {
     height: '70%',
     width: '100%',
+    paddingLeft: 30,
+    paddingRight: 20,
   },
   shoppingDetailsContainer: {
-    height: '20%',
-    width: '90%',
-    backgroundColor: 'red',
+    height: '22%',
+    width: '96%',
+    backgroundColor: CONSTANTS.COLORS.BLACK10,
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignSelf: 'center',
+    paddingLeft: 8,
+    paddingRight: 8,
+    borderRadius: 20,
   },
   shoppingDetailsTextLineContainer: {
     width: '100%',
@@ -91,6 +158,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 20,
     paddingRight: 20,
+    paddingBottom: 10,
   },
 });
 

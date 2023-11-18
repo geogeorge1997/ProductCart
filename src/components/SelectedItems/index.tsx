@@ -2,29 +2,58 @@ import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Image,
   TouchableOpacity,
   FlatList,
 } from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
+import Text from '../Text';
+
+import * as CONSTANTS from '../../utils/contants';
 
 const ProductCard = ({item, onIncrement, onDecrement}) => {
   return (
     <View style={styles.productCard}>
       <Image source={{uri: item.thumbnail}} style={styles.productImage} />
       <View style={styles.productInfo}>
-        <Text style={styles.productName}>{item.name}</Text>
-        <Text style={styles.productPrice}>${item.price.toFixed(2)} </Text>
+        <Text
+          style={styles.productName}
+          variant={''}
+          text={item.title}
+          numberOfLines={1}
+        />
+        <Text
+          style={styles.productPrice}
+          variant={''}
+          text={item.price.toFixed(2)}
+          numberOfLines={1}
+        />
       </View>
       <View style={styles.productAmount}>
         <TouchableOpacity style={styles.amountButton} onPress={onDecrement}>
-          <Text style={styles.amountButtonText}>-</Text>
+          <Text
+            style={styles.amountButtonText}
+            variant={''}
+            text={'-'}
+            numberOfLines={1}
+          />
         </TouchableOpacity>
-        <Text style={styles.amountText}>{item.count}</Text>
+        <View style={{paddingRight: 4}} />
+        <Text
+          style={styles.amountText}
+          variant={''}
+          text={item.count}
+          numberOfLines={1}
+        />
+        <View style={{paddingRight: 4}} />
         <TouchableOpacity style={styles.amountButton} onPress={onIncrement}>
-          <Text style={styles.amountButtonText}>+</Text>
+          <Text
+            style={styles.amountButtonText}
+            variant={''}
+            text={'+'}
+            numberOfLines={1}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -71,6 +100,10 @@ const SelectedItems = () => {
     );
   };
 
+  const myItemSeparator = (): JSX.Element => {
+    return <View style={styles.ItemSeparatorComponentStyle} />;
+  };
+
   const renderProductItem = ({item}) => (
     <ProductCard
       item={item}
@@ -85,6 +118,7 @@ const SelectedItems = () => {
         data={products}
         style={styles.productList}
         renderItem={renderProductItem}
+        ItemSeparatorComponent={myItemSeparator}
         keyExtractor={item => item.id.toString()}
         contentContainerStyle={{paddingHorizontal: 16, paddingBottom: 20}}
       />
@@ -95,55 +129,41 @@ const SelectedItems = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f7f7f7',
-    paddingTop: 40,
   },
   productList: {
     flex: 1,
     paddingTop: 16,
   },
   productCard: {
+    height: 42,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#fff',
     borderRadius: 8,
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowOffset: {width: 0, height: 2},
-    shadowRadius: 4,
-    padding: 16,
-    marginBottom: 16,
+    marginBottom: 8,
+    marginTop: 8,
   },
   productImage: {
-    width: 70,
-    height: 70,
+    width: 40,
+    height: 40,
     borderRadius: 35,
     marginRight: 16,
   },
   productInfo: {
     flex: 1,
-    marginRight: 16,
+    marginRight: 6,
   },
   productName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  productDescription: {
     fontSize: 14,
-    color: '#666',
-    marginBottom: 4,
+    fontWeight: 'bold',
+    color: CONSTANTS.COLORS.BLACK100,
+    fontFamily: 'manrope',
   },
   productPrice: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#4caf50',
-  },
-  productPriceText: {
     fontSize: 14,
     fontWeight: 'normal',
-    color: '#666',
+    color: CONSTANTS.COLORS.BLACK100,
+    fontFamily: 'manrope',
   },
   productAmount: {
     flexDirection: 'row',
@@ -152,19 +172,22 @@ const styles = StyleSheet.create({
   amountButton: {
     width: 30,
     height: 30,
-    backgroundColor: '#ffa726',
+    backgroundColor: CONSTANTS.COLORS.BLACK20,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
   amountButtonText: {
-    color: '#fff',
     fontSize: 18,
+    fontWeight: 'normal',
+    color: CONSTANTS.COLORS.BLACK100,
+    fontFamily: 'manrope',
   },
   amountText: {
     fontSize: 18,
-    fontWeight: 'bold',
-    marginHorizontal: 16,
+    fontWeight: 'normal',
+    color: CONSTANTS.COLORS.BLACK100,
+    fontFamily: 'manrope',
   },
   continueButton: {
     position: 'absolute',
@@ -180,6 +203,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  ItemSeparatorComponentStyle: {
+    height: 1,
+    paddingVertical: 1,
+    backgroundColor: CONSTANTS.COLORS.BLACK20,
   },
 });
 
