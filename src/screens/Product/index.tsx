@@ -150,8 +150,8 @@ function ProductScreen() {
       <View style={styles.imageBoxContainer}>
         <IconButton
           style={styles.favIcon}
-          icon="heart"
-          iconColor={favItems[item.id] ? 'red' : 'blue'}
+          icon={favItems[item.id] ? 'cards-heart' : 'cards-heart-outline'}
+          iconColor="red"
           size={20}
           onPress={() => {
             console.log('favItems[item.id] - ', favItems[item.id]);
