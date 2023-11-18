@@ -35,7 +35,11 @@ function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
-      <View style={styles.topContainer}>
+      <View
+        style={{
+          ...styles.topContainer,
+          height: (3 * Dimensions.get('window').height) / 10,
+        }}>
         <View style={{paddingTop: 20}} />
         <View style={styles.group1Container}>
           <Text
@@ -287,10 +291,11 @@ function HomeScreen() {
 const styles = StyleSheet.create({
   safeAreaViewStyle: {
     flex: 1,
+    height: '100%',
+    width: '100%',
   },
   topContainer: {
     backgroundColor: CONSTANTS.COLORS.SYSTEMS1,
-    height: '30%',
     width: '100%',
   },
   bannerContainer: {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {StyleSheet, View, Image, SafeAreaView} from 'react-native';
 
 import Button from '../../components/Button';
@@ -100,6 +100,19 @@ function ProductScreen() {
     (state: any) => state.userCartReducer.cartSuccess,
   );
 
+  const isUserCartLoading: any = useSelector(
+    (state: any) => state.userCartReducer.isUserCartLoading,
+  );
+
+  useEffect(() => {
+    if (isUserCartLoading) {
+      dispatch({
+        type: UserCartActionType.USER_CART_LOADING_REQUEST,
+        payload: false,
+      });
+    }
+  }, [isUserCartLoading]);
+
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
       <View style={styles.headerContainer}>
@@ -162,6 +175,10 @@ function ProductScreen() {
             } else {
               favItemsCopy[item.id] = true;
             }
+            dispatch({
+              type: UserCartActionType.USER_CART_LOADING_REQUEST,
+              payload: true,
+            });
             dispatch({
               type: UserCartActionType.ADD_FAV_REQUEST,
               payload: {payloadData: favItemsCopy},

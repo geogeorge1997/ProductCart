@@ -70,14 +70,17 @@ const SelectedItems = ({setSubTotalPrice}) => {
   const [products, setProducts] = useState<any>([]);
 
   useEffect(() => {
+    let subTotalPrice = 0;
     const array = [];
     for (const key in cartItems) {
       if (cartItems.hasOwnProperty(key)) {
         console.log(cartItems[key]);
         array.push(cartItems[key]);
+        subTotalPrice += cartItems[key].price * cartItems[key].count;
       }
     }
     setProducts(array);
+    setSubTotalPrice(subTotalPrice);
   }, []);
 
   const handleIncrement = item => {

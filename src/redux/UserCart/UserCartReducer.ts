@@ -52,7 +52,7 @@ const userCartReducer = (state = initialState, action: any): any => {
     case USER_CART_LOADING:
       return {
         ...state,
-        isUserCartLoading: true,
+        isUserCartLoading: action.payload,
       };
     default:
       return state;

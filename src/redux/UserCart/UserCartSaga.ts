@@ -134,14 +134,18 @@ export function* watchRemoveCartSaga(): any {
   yield takeEvery(REMOVE_CART_REQUEST, removeCartSaga);
 }
 
-function* userCartLoaderSaga(): Generator<
+function* userCartLoaderSaga(data: {
+  payload: boolean;
+  type: string;
+}): Generator<
   Promise<AxiosResponse<any, any>> | PutEffect<AnyAction>,
   void,
   void
 > {
+  console.log('data payload - ', data.payload);
   yield put({
     type: USER_CART_LOADING,
-    payload: true,
+    payload: data.payload,
   });
 }
 

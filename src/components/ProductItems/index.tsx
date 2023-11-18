@@ -38,87 +38,92 @@ type ItemProps = {
   cartItems: any;
 };
 
-const Item = ({item, onPress, dispatch, favItems, cartItems}: ItemProps) => (
-  <View style={styles.productItem}>
-    <TouchableOpacity onPress={onPress} style={[styles.item]}>
-      <Image
-        resizeMode="cover"
-        style={styles.imageCover}
-        source={{uri: item.thumbnail}}
-      />
-      <IconButton
-        style={styles.favIcon}
-        icon="cards-heart"
-        iconColor={'red'}
-        size={20}
-        onPress={() => {
-          let favItemsCopy = favItems;
-          const res = favItems[item.id];
-          if (res) {
-            delete favItemsCopy[item.id];
-          } else {
-            favItemsCopy[item.id] = true;
+const Item = ({item, onPress, dispatch, favItems, cartItems}: ItemProps) => {
+  return (
+    <View style={styles.productItem}>
+      <TouchableOpacity onPress={onPress} style={[styles.item]}>
+        <Image
+          resizeMode="cover"
+          style={styles.imageCover}
+          source={{uri: item.thumbnail}}
+        />
+        <IconButton
+          style={styles.favIcon}
+          icon={
+            favItems[String(item.id)] ? 'cards-heart' : 'cards-heart-outline'
           }
-          dispatch({
-            type: UserCartActionType.USER_CART_LOADING_REQUEST,
-          });
-          dispatch({
-            type: UserCartActionType.ADD_FAV_REQUEST,
-            payload: {payloadData: favItemsCopy},
-          });
-        }}
-      />
-      <View style={styles.itemBottomContainer}>
-        <View style={styles.priceNameContainer}>
-          <Text
-            variant={''}
-            style={{
-              color: CONSTANTS.COLORS.BLACK100,
-              fontFamily: 'manrope',
-              fontSize: 16,
-              fontWeight: 'bold',
-            }}
-            text={'$' + String(item.price)}
-            numberOfLines={undefined}
-          />
-          <Text
-            variant={''}
-            style={{
-              color: CONSTANTS.COLORS.BLACK20,
-              fontFamily: 'manrope',
-              fontSize: 14,
-              fontWeight: 'normal',
-            }}
-            text={item.brand}
-            numberOfLines={undefined}
-          />
+          iconColor={'red'}
+          size={20}
+          onPress={() => {
+            let favItemsCopy = favItems;
+            const res = favItems[item.id];
+            if (res) {
+              delete favItemsCopy[item.id];
+            } else {
+              favItemsCopy[item.id] = true;
+            }
+            dispatch({
+              type: UserCartActionType.USER_CART_LOADING_REQUEST,
+              payload: true,
+            });
+            dispatch({
+              type: UserCartActionType.ADD_FAV_REQUEST,
+              payload: {payloadData: favItemsCopy},
+            });
+          }}
+        />
+        <View style={styles.itemBottomContainer}>
+          <View style={styles.priceNameContainer}>
+            <Text
+              variant={''}
+              style={{
+                color: CONSTANTS.COLORS.BLACK100,
+                fontFamily: 'manrope',
+                fontSize: 16,
+                fontWeight: 'bold',
+              }}
+              text={'$' + String(item.price)}
+              numberOfLines={undefined}
+            />
+            <Text
+              variant={''}
+              style={{
+                color: CONSTANTS.COLORS.BLACK20,
+                fontFamily: 'manrope',
+                fontSize: 14,
+                fontWeight: 'normal',
+              }}
+              text={item.brand}
+              numberOfLines={undefined}
+            />
+          </View>
+          <View style={styles.addButtonContainer}>
+            <IconButton
+              // style={styles.favIcon}
+              icon="plus-circle"
+              iconColor={CONSTANTS.COLORS.SYSTEMS1}
+              size={20}
+              onPress={() => {
+                let cartItemsCopy = cartItems;
+                const res = cartItems[item.id];
+                if (res) {
+                  cartItemsCopy[item.id].count += 1;
+                } else {
+                  cartItemsCopy[item.id] = item;
+                  cartItemsCopy[item.id].count = 1;
+                }
+                dispatch({
+                  type: UserCartActionType.ADD_CART_REQUEST,
+                  payload: {payloadData: cartItemsCopy},
+                });
+              }}
+            />
+          </View>
         </View>
-        <View style={styles.addButtonContainer}>
-          <IconButton
-            // style={styles.favIcon}
-            icon="plus-circle"
-            iconColor={CONSTANTS.COLORS.SYSTEMS1}
-            size={20}
-            onPress={() => {
-              let cartItemsCopy = cartItems;
-              const res = cartItems[item.id];
-              if (res) {
-                cartItemsCopy[item.id].count += 1;
-              } else {
-                cartItemsCopy[item.id] = item;
-                cartItemsCopy[item.id].count = 1;
-              }
-              dispatch({
-                type: UserCartActionType.ADD_CART_REQUEST,
-                payload: {payloadData: cartItemsCopy},
-              });
-            }}
-          />
-        </View>
-      </View>
-    </TouchableOpacity>
-  </View>
-);
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const ProductItemList = () => {
   const dispatch = useDispatch();
@@ -138,13 +143,13 @@ const ProductItemList = () => {
     (state: any) => state.userCartReducer.isUserCartLoading,
   );
 
-  console.log('cartItems - ', cartItems);
-
-  console.log('isUserCartLoading - ', isUserCartLoading);
-
   useEffect(() => {
-    console.log('isUserCartLoading - ', isUserCartLoading);
-    console.log('favItems - ', favItems);
+    if (isUserCartLoading) {
+      dispatch({
+        type: UserCartActionType.USER_CART_LOADING_REQUEST,
+        payload: false,
+      });
+    }
   }, [isUserCartLoading]);
 
   const navigation = useNavigation<homeScreenProp>();

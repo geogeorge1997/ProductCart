@@ -12,6 +12,7 @@ import {
   watchAddCartSaga,
   watchRemoveCartSaga,
   watchRemoveFavSaga,
+  watchUserCartLoaderSaga,
 } from './UserCart/UserCartSaga';
 
 const rootReducer = combineReducers({
@@ -35,6 +36,7 @@ export function* rootSaga(): any {
     fork(watchAddFavSaga),
     fork(watchRemoveCartSaga),
     fork(watchRemoveFavSaga),
+    fork(watchUserCartLoaderSaga),
   ]);
 }
 
