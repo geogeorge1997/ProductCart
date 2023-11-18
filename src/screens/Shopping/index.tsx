@@ -12,10 +12,20 @@ import {type StackNavigationProp} from '@react-navigation/stack';
 import {type RootStackParamList} from '../../navigators/StackNavigator/type';
 import {IconButton} from 'react-native-paper';
 import Text from '../../components/Text';
+import {useEffect, useState} from 'react';
 
 type shoppingScreenProp = StackNavigationProp<RootStackParamList, 'Shopping'>;
 
 function ShoppingScreen() {
+  const [subTotalPrice, setSubTotalPrice] = useState(0);
+  const [deliveryPrice, setDeliveryPrice] = useState(10);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    console.log('totalPrice - ', subTotalPrice);
+    setTotalPrice(subTotalPrice + deliveryPrice);
+  }, [subTotalPrice]);
+
   const navigation = useNavigation<shoppingScreenProp>();
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
@@ -31,7 +41,7 @@ function ShoppingScreen() {
         />
       </View>
       <View style={styles.selectItemsContainer}>
-        <SelectedItems />
+        <SelectedItems setSubTotalPrice={setSubTotalPrice} />
       </View>
       <View style={styles.shoppingDetailsContainer}>
         <View style={styles.shoppingDetailsTextLineContainer}>
@@ -54,7 +64,7 @@ function ShoppingScreen() {
               fontSize: 14,
               fontWeight: 'normal',
             }}
-            text={'undefined'}
+            text={'$' + String(subTotalPrice)}
             numberOfLines={1}
           />
         </View>
@@ -78,7 +88,7 @@ function ShoppingScreen() {
               fontSize: 14,
               fontWeight: 'normal',
             }}
-            text={'undefined'}
+            text={'$' + String(deliveryPrice)}
             numberOfLines={1}
           />
         </View>
@@ -102,7 +112,7 @@ function ShoppingScreen() {
               fontSize: 14,
               fontWeight: 'normal',
             }}
-            text={'undefined'}
+            text={'$' + String(totalPrice)}
             numberOfLines={1}
           />
         </View>

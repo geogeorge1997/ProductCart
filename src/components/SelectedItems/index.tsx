@@ -60,7 +60,7 @@ const ProductCard = ({item, onIncrement, onDecrement}) => {
   );
 };
 
-const SelectedItems = () => {
+const SelectedItems = ({setSubTotalPrice}) => {
   const dispatch = useDispatch();
 
   const cartItems: any = useSelector(
@@ -81,23 +81,35 @@ const SelectedItems = () => {
   }, []);
 
   const handleIncrement = item => {
+    let subTotal = 0;
     setProducts(
-      products.map(product =>
-        product.id === item.id
-          ? {...product, count: product.count + 1}
-          : product,
-      ),
+      products.map(product => {
+        if (product.id === item.id) {
+          subTotal += product.price * (product.count + 1);
+          return {...product, count: product.count + 1};
+        } else {
+          subTotal += product.price * product.count;
+          return product;
+        }
+      }),
     );
+    setSubTotalPrice(subTotal);
   };
 
   const handleDecrement = item => {
+    let subTotal = 0;
     setProducts(
-      products.map(product =>
-        product.id === item.id
-          ? {...product, count: Math.max(0, product.count - 1)}
-          : product,
-      ),
+      products.map(product => {
+        if (product.id === item.id) {
+          subTotal += product.price * (product.count - 1);
+          return {...product, count: Math.max(0, product.count - 1)};
+        } else {
+          subTotal += product.price * product.count;
+          return product;
+        }
+      }),
     );
+    setSubTotalPrice(subTotal);
   };
 
   const myItemSeparator = (): JSX.Element => {
