@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -14,9 +13,12 @@ import {useNavigation} from '@react-navigation/native';
 import {type StackNavigationProp} from '@react-navigation/stack';
 
 import {type RootStackParamList} from '../../navigators/StackNavigator/type';
-import {IconButton, MD3Colors} from 'react-native-paper';
+import {IconButton} from 'react-native-paper';
 import * as UserCartActionType from '../../redux/UserCart/UserCartActionTypes';
 import {useDispatch, useSelector} from 'react-redux';
+
+import * as CONSTANTS from '../../utils/contants';
+import Text from '../Text';
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -46,7 +48,7 @@ const Item = ({item, onPress, dispatch, favItems, cartItems}: ItemProps) => (
       />
       <IconButton
         style={styles.favIcon}
-        icon="camera"
+        icon="cards-heart"
         iconColor={'red'}
         size={20}
         onPress={() => {
@@ -68,14 +70,34 @@ const Item = ({item, onPress, dispatch, favItems, cartItems}: ItemProps) => (
       />
       <View style={styles.itemBottomContainer}>
         <View style={styles.priceNameContainer}>
-          <Text>{item.price}</Text>
-          <Text>{item.brand}</Text>
+          <Text
+            variant={''}
+            style={{
+              color: CONSTANTS.COLORS.BLACK100,
+              fontFamily: 'manrope',
+              fontSize: 16,
+              fontWeight: 'bold',
+            }}
+            text={'$' + String(item.price)}
+            numberOfLines={undefined}
+          />
+          <Text
+            variant={''}
+            style={{
+              color: CONSTANTS.COLORS.BLACK20,
+              fontFamily: 'manrope',
+              fontSize: 14,
+              fontWeight: 'normal',
+            }}
+            text={item.brand}
+            numberOfLines={undefined}
+          />
         </View>
         <View style={styles.addButtonContainer}>
           <IconButton
             // style={styles.favIcon}
-            icon="camera"
-            iconColor={MD3Colors.error50}
+            icon="plus-circle"
+            iconColor={CONSTANTS.COLORS.SYSTEMS1}
             size={20}
             onPress={() => {
               let cartItemsCopy = cartItems;
@@ -150,7 +172,7 @@ const ProductItemList = () => {
         numColumns={2}
         renderItem={renderItem}
         keyExtractor={item => String(item.id)}
-        contentContainerStyle={{paddingBottom: 180}}
+        contentContainerStyle={{paddingBottom: 120}}
       />
     </SafeAreaView>
   );
@@ -164,7 +186,7 @@ const styles = StyleSheet.create({
   item: {
     height: '100%',
     width: '100%',
-    backgroundColor: 'blue',
+    backgroundColor: CONSTANTS.COLORS.BLACK10,
     borderRadius: 12,
   },
   title: {
@@ -177,7 +199,7 @@ const styles = StyleSheet.create({
   imageCover: {
     flex: 1,
     borderRadius: 5,
-    height: '80%',
+    height: '70%',
     width: '100%',
   },
   favIcon: {
@@ -192,7 +214,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     width: '100%',
-    height: '20%',
+    height: '30%',
     display: 'flex',
     flexDirection: 'row',
   },

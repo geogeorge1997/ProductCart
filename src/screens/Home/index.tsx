@@ -22,6 +22,8 @@ function HomeScreen() {
     'https://i.dummyjson.com/data/products/1/thumbnail.jpg',
   ]);
 
+  const [textInput, setTextInput] = useState('');
+
   useEffect(() => {
     dispatch({
       type: TestReduxActionType.TEST_REDUX_REQUEST,
@@ -32,41 +34,112 @@ function HomeScreen() {
   return (
     <SafeAreaView style={styles.safeAreaViewStyle}>
       <View style={styles.topContainer}>
+        <View style={{paddingTop: 20}} />
         <View style={styles.group1Container}>
-          <Text variant={''} style={{}} text={'undefined'} numberOfLines={1} />
+          <Text
+            variant={''}
+            style={{
+              color: CONSTANTS.COLORS.BLACK1,
+              fontFamily: 'manrope',
+              fontSize: 30,
+              fontWeight: 'bold',
+            }}
+            text={'Hey, Rahul'}
+            numberOfLines={1}
+          />
           <IconButton
             // style={styles.favIcon}
-            icon="camera"
-            iconColor={'red'}
-            size={20}
+            icon="shopping-search"
+            iconColor={CONSTANTS.COLORS.BLACK1}
+            size={30}
             onPress={() => {}}
           />
         </View>
-        <TextInput
-          colors={CONSTANTS.COLORS}
-          keyboardType={false}
-          multiline={false}
-          maxLength={100}
-          placeholder={'Search Product or store'}
-          value={''}
-          editable={false}
-          style={undefined}
-          setTextInput={() => {}}
-        />
+        <View style={{paddingTop: 20}} />
+        <View style={styles.textInputContainer}>
+          <TextInput
+            colors={CONSTANTS.COLORS}
+            keyboardType={false}
+            multiline={false}
+            maxLength={100}
+            placeholder={'Search Product or store'}
+            value={textInput}
+            editable={true}
+            textColor={CONSTANTS.COLORS.BLACK1}
+            placeholderTextColor={CONSTANTS.COLORS.BLACK20}
+            style={{
+              backgroundColor: CONSTANTS.COLORS.SYSTEMS2,
+              borderRadius: 28,
+            }}
+            setTextInput={setTextInput}
+          />
+        </View>
+        <View style={{paddingTop: 20}} />
         <View style={styles.group1Container}>
-          <Text variant={''} style={{}} text={'undefined'} numberOfLines={1} />
-          <Text variant={''} style={{}} text={'undefined'} numberOfLines={1} />
+          <Text
+            variant={''}
+            style={{
+              color: CONSTANTS.COLORS.BLACK20,
+              fontFamily: 'manrope',
+              fontSize: 14,
+              fontWeight: 'bold',
+            }}
+            text={'DELIVERY TO'}
+            numberOfLines={1}
+          />
+          <Text
+            variant={''}
+            style={{
+              color: CONSTANTS.COLORS.BLACK20,
+              fontFamily: 'manrope',
+              fontSize: 14,
+              fontWeight: 'bold',
+            }}
+            text={'WITHIN'}
+            numberOfLines={1}
+          />
         </View>
         <View style={styles.group1Container}>
-          <Text variant={''} style={{}} text={'undefined'} numberOfLines={1} />
-          <Text variant={''} style={{}} text={'undefined'} numberOfLines={1} />
+          <Text
+            variant={''}
+            style={{
+              color: CONSTANTS.COLORS.BLACK1,
+              fontFamily: 'manrope',
+              fontSize: 14,
+              fontWeight: 'normal',
+            }}
+            text={'Green Way 3000, Sylhet'}
+            numberOfLines={1}
+          />
+          <Text
+            variant={''}
+            style={{
+              color: CONSTANTS.COLORS.BLACK1,
+              fontFamily: 'manrope',
+              fontSize: 14,
+              fontWeight: 'normal',
+            }}
+            text={'1 Hour'}
+            numberOfLines={1}
+          />
         </View>
+        <View style={{paddingTop: 20}} />
       </View>
       <View style={styles.bannerContainer}>
         <OfferBox offerList={offerList} />
       </View>
       <View style={styles.recommendationContainer}>
-        <Text variant={''} style={{}} text={'undefined'} numberOfLines={1} />
+        <Text
+          variant={''}
+          style={{
+            color: CONSTANTS.COLORS.BLACK100,
+            fontFamily: 'manrope',
+            fontSize: 30,
+            fontWeight: 'normal',
+          }}
+          text={'Recommended'}
+          numberOfLines={1}
+        />
       </View>
       <View style={styles.productContainer}>
         <ProductItems />
@@ -82,23 +155,24 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     backgroundColor: CONSTANTS.COLORS.SYSTEMS1,
-    height: '34%',
+    height: '30%',
     width: '100%',
   },
   bannerContainer: {
     // backgroundColor: CONSTANTS.COLORS.SYSTEMS1,
-    height: '25%',
+    height: '20%',
     width: '100%',
   },
   productContainer: {
     // backgroundColor: CONSTANTS.COLORS.SYSTEMS1,
-    height: '40%',
+    height: '44%',
     width: '100%',
     display: 'flex',
     alignItems: 'stretch',
   },
   group1Container: {
-    height: '10%',
+    paddingLeft: 20,
+    paddingRight: 20,
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
@@ -106,15 +180,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   recommendationContainer: {
-    height: '10%',
+    height: '6%',
     width: '100%',
+    paddingLeft: 20,
   },
   tabBarContainer: {
-    height: '10%',
+    height: '6%',
     width: '100%',
     position: 'absolute',
     bottom: 0,
     backgroundColor: 'yellow',
+  },
+  textInputContainer: {
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 });
 

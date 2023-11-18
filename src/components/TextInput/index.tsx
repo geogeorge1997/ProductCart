@@ -20,6 +20,8 @@ interface TextInputProps {
   value: string;
   editable: boolean;
   style: any;
+  textColor: string;
+  placeholderTextColor: string;
   setTextInput: (newText: string) => void;
 }
 
@@ -33,6 +35,8 @@ const TextInput: React.FC<TextInputProps> = ({
   value,
   editable,
   style,
+  textColor,
+  placeholderTextColor,
   setTextInput,
 }) => {
   const [myText, setMyText] = useState<string>('');
@@ -42,8 +46,8 @@ const TextInput: React.FC<TextInputProps> = ({
         keyboardType={keyboardType ? 'numeric' : undefined}
         autoCorrect={false}
         autoComplete="off"
-        textColor={colors?.PRIMARY_TEXT}
-        placeholderTextColor={colors?.GREY}
+        textColor={textColor}
+        placeholderTextColor={placeholderTextColor}
         underlineColor={colors?.TRANSPARENT}
         multiline={multiline}
         maxLength={maxLength}
