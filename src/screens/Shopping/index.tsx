@@ -18,12 +18,16 @@ type shoppingScreenProp = StackNavigationProp<RootStackParamList, 'Shopping'>;
 
 function ShoppingScreen() {
   const [subTotalPrice, setSubTotalPrice] = useState(0);
-  const [deliveryPrice, setDeliveryPrice] = useState(10);
+  const deliveryPrice = 10;
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     console.log('totalPrice - ', subTotalPrice);
-    setTotalPrice(subTotalPrice + deliveryPrice);
+    if (subTotalPrice > 100) {
+      setTotalPrice(subTotalPrice + deliveryPrice);
+    } else {
+      setTotalPrice(subTotalPrice);
+    }
   }, [subTotalPrice]);
 
   const navigation = useNavigation<shoppingScreenProp>();
@@ -122,7 +126,7 @@ function ShoppingScreen() {
           textColor={CONSTANTS.COLORS.BLACK1}
           text={'Proceed To Checkout'}
           onPress={() => {}}
-          style={undefined}
+          style={{}}
         />
       </View>
     </SafeAreaView>
