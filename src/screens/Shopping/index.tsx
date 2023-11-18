@@ -18,15 +18,16 @@ type shoppingScreenProp = StackNavigationProp<RootStackParamList, 'Shopping'>;
 
 function ShoppingScreen() {
   const [subTotalPrice, setSubTotalPrice] = useState(0);
-  const deliveryPrice = 10;
+  const [deliveryPrice, setDeliveryPrice] = useState(10);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    console.log('totalPrice - ', subTotalPrice);
     if (subTotalPrice > 100) {
-      setTotalPrice(subTotalPrice + deliveryPrice);
+      setTotalPrice(subTotalPrice + 10);
+      setDeliveryPrice(10);
     } else {
       setTotalPrice(subTotalPrice);
+      setDeliveryPrice(0);
     }
   }, [subTotalPrice]);
 
