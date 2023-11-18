@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 
 // https://callstack.github.io/react-native-paper/text-input.html
-import {TextInput as PaperTextInput} from 'react-native-paper';
+import {Searchbar as PaperTextInput} from 'react-native-paper';
 
 // import Text from '../Text';
 
@@ -43,16 +43,18 @@ const TextInput: React.FC<TextInputProps> = ({
   return (
     <View style={styles.container}>
       <PaperTextInput
+        mode="bar"
         keyboardType={keyboardType ? 'numeric' : undefined}
         autoCorrect={false}
         autoComplete="off"
-        textColor={textColor}
+        iconColor={textColor}
         placeholderTextColor={placeholderTextColor}
-        underlineColor={colors?.TRANSPARENT}
         multiline={multiline}
         maxLength={maxLength}
         style={style}
-        mode="flat"
+        inputStyle={{
+          color: textColor,
+        }}
         placeholder={placeholder}
         value={myText || value}
         editable={editable}

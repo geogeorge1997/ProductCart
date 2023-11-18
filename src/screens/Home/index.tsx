@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {useEffect, useState} from 'react';
-import {StyleSheet, View, SafeAreaView} from 'react-native';
+import {StyleSheet, View, SafeAreaView, Dimensions} from 'react-native';
 
 import ProductItems from '../../components/ProductItems';
 import * as TestReduxActionType from '../../redux/TestRedux/TestReduxActionTypes';
@@ -13,6 +13,8 @@ import OfferBox from '../../components/OfferBox';
 
 function HomeScreen() {
   const dispatch = useDispatch();
+
+  const [iconValue, setIconValue] = useState(1);
 
   const [offerList, setOfferList] = useState([
     'https://i.dummyjson.com/data/products/1/1.jpg',
@@ -144,7 +146,140 @@ function HomeScreen() {
       <View style={styles.productContainer}>
         <ProductItems />
       </View>
-      <View style={styles.tabBarContainer} />
+      <View style={styles.tabBarContainer}>
+        <View
+          style={
+            iconValue === 1
+              ? {
+                  ...styles.favIconSelected,
+                  left: Dimensions.get('window').width / 5 - 30,
+                }
+              : {
+                  ...styles.favIcon,
+                  left: Dimensions.get('window').width / 5 - 30,
+                }
+          }>
+          <IconButton
+            icon="home-variant"
+            iconColor={
+              iconValue === 1
+                ? CONSTANTS.COLORS.SYSTEMS3
+                : CONSTANTS.COLORS.BLACK100
+            }
+            size={30}
+            onPress={() => {
+              setIconValue(1);
+            }}
+          />
+          {iconValue === 1 ? null : (
+            <Text
+              variant={''}
+              style={styles.barIconText}
+              text={'Home'}
+              numberOfLines={1}
+            />
+          )}
+        </View>
+        <View
+          style={
+            iconValue === 2
+              ? {
+                  ...styles.favIconSelected,
+                  left: (2 * Dimensions.get('window').width) / 5 - 30,
+                }
+              : {
+                  ...styles.favIcon,
+                  left: (2 * Dimensions.get('window').width) / 5 - 30,
+                }
+          }>
+          <IconButton
+            icon="view-list" // dots-grid
+            iconColor={
+              iconValue === 2
+                ? CONSTANTS.COLORS.SYSTEMS3
+                : CONSTANTS.COLORS.BLACK100
+            }
+            size={30}
+            onPress={() => {
+              setIconValue(2);
+            }}
+          />
+          {iconValue === 2 ? null : (
+            <Text
+              variant={''}
+              style={styles.barIconText}
+              text={'Categories'}
+              numberOfLines={1}
+            />
+          )}
+        </View>
+        <View
+          style={
+            iconValue === 3
+              ? {
+                  ...styles.favIconSelected,
+                  left: (3 * Dimensions.get('window').width) / 5 - 30,
+                }
+              : {
+                  ...styles.favIcon,
+                  left: (3 * Dimensions.get('window').width) / 5 - 30,
+                }
+          }>
+          <IconButton
+            icon="cards-heart"
+            iconColor={
+              iconValue === 3
+                ? CONSTANTS.COLORS.SYSTEMS3
+                : CONSTANTS.COLORS.BLACK100
+            }
+            size={30}
+            onPress={() => {
+              setIconValue(3);
+            }}
+          />
+          {iconValue === 3 ? null : (
+            <Text
+              variant={''}
+              style={styles.barIconText}
+              text={'Favourite'}
+              numberOfLines={1}
+            />
+          )}
+        </View>
+        <View
+          style={
+            iconValue === 4
+              ? {
+                  ...styles.favIconSelected,
+                  left: (4 * Dimensions.get('window').width) / 5 - 30,
+                }
+              : {
+                  ...styles.favIcon,
+                  left: (4 * Dimensions.get('window').width) / 5 - 30,
+                }
+          }>
+          <IconButton
+            icon="dots-vertical"
+            iconColor={
+              iconValue === 4
+                ? CONSTANTS.COLORS.SYSTEMS3
+                : CONSTANTS.COLORS.BLACK100
+            }
+            size={30}
+            onPress={() => {
+              setIconValue(4);
+            }}
+          />
+          {iconValue === 4 ? null : (
+            <Text
+              variant={''}
+              style={styles.barIconText}
+              text={'More'}
+              numberOfLines={1}
+            />
+          )}
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
@@ -185,15 +320,54 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   tabBarContainer: {
-    height: '6%',
+    height: '8%',
     width: '100%',
     position: 'absolute',
     bottom: 0,
-    backgroundColor: 'yellow',
+    backgroundColor: CONSTANTS.COLORS.BLACK1,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    borderRadius: 30,
   },
   textInputContainer: {
     paddingLeft: 20,
     paddingRight: 20,
+  },
+  favIcon: {
+    // margin: 5,
+    position: 'absolute',
+    bottom: 5,
+    zIndex: 1,
+    height: '100%',
+    width: 50,
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    alignContent: 'center',
+    alignSelf: 'center',
+    flexDirection: 'column',
+  },
+  favIconSelected: {
+    // margin: 5,
+    position: 'absolute',
+    bottom: 20,
+    zIndex: 1,
+    height: 50,
+    width: 50,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    backgroundColor: CONSTANTS.COLORS.BLACK100,
+    borderRadius: 50,
+  },
+  barIconText: {
+    color: CONSTANTS.COLORS.BLACK45,
+    fontFamily: 'manrope',
+    fontSize: 10,
+    fontWeight: 'normal',
   },
 });
 
