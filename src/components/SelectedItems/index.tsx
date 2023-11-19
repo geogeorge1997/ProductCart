@@ -91,7 +91,7 @@ const SelectedItems: React.FC<SelectedItemsProps> = ({setSubTotalPrice}) => {
     const array = [];
     for (const key in cartItems) {
       if (cartItems.hasOwnProperty(key)) {
-        console.log(cartItems[key]);
+        cartItems[key].count = 1;
         array.push(cartItems[key]);
         subTotalPrice += cartItems[key].price * cartItems[key].count;
       }

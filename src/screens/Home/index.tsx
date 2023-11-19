@@ -105,10 +105,18 @@ function HomeScreen() {
         </View>
         <View style={{paddingTop: padding20}} />
       </View>
-      <View style={styles.bannerContainer}>
+      <View
+        style={{
+          ...styles.bannerContainer,
+          height: (18 * Dimensions.get('window').height) / 100,
+        }}>
         <OfferBox offerList={offerList} />
       </View>
-      <View style={styles.recommendationContainer}>
+      <View
+        style={{
+          ...styles.recommendationContainer,
+          height: (6 * Dimensions.get('window').height) / 100,
+        }}>
         <Text
           variant={''}
           style={styles.black100Normal30}
@@ -116,7 +124,11 @@ function HomeScreen() {
           numberOfLines={1}
         />
       </View>
-      <View style={styles.productContainer}>
+      <View
+        style={{
+          ...styles.productContainer,
+          height: (44 * Dimensions.get('window').height) / 100,
+        }}>
         <ProductItems />
       </View>
       <View style={styles.tabBarContainer}>
@@ -268,13 +280,9 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   bannerContainer: {
-    // backgroundColor: CONSTANTS.COLORS.SYSTEMS1,
-    height: '20%',
     width: '100%',
   },
   productContainer: {
-    // backgroundColor: CONSTANTS.COLORS.SYSTEMS1,
-    height: '44%',
     width: '100%',
     display: 'flex',
     alignItems: 'stretch',
@@ -289,7 +297,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   recommendationContainer: {
-    height: '6%',
     width: '100%',
     paddingLeft: 20,
   },

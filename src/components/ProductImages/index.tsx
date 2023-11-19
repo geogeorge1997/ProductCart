@@ -13,7 +13,7 @@ const RenderItem: React.FC<RenderItemProps> = ({item}) => {
   return (
     <View style={{...styles.item, width: Dimensions.get('window').width}}>
       <Image
-        resizeMode="cover"
+        resizeMode="contain"
         style={styles.imageCover}
         source={{uri: item}}
       />

@@ -91,7 +91,6 @@ function* addCartSaga(data: {
 > {
   try {
     const payload = data.payload.payloadData;
-    // console.log('payload - ', payload);
     yield put({
       type: ADD_CART_SUCCESS,
       payload: payload,
@@ -142,7 +141,6 @@ function* userCartLoaderSaga(data: {
   void,
   void
 > {
-  console.log('data payload - ', data.payload);
   yield put({
     type: USER_CART_LOADING,
     payload: data.payload,

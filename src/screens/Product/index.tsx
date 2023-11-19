@@ -84,6 +84,40 @@ const RatingContainer: React.FC<RatingBoxProps> = ({item}) => {
   );
 };
 
+const addFav = (favItems: any, item: any, dispatch: any) => {
+  let favItemsCopy = favItems;
+  const res = favItems[item.id];
+  if (res) {
+    delete favItemsCopy[item.id];
+  } else {
+    favItemsCopy[item.id] = true;
+  }
+  dispatch({
+    type: UserCartActionType.USER_CART_LOADING_REQUEST,
+    payload: true,
+  });
+  dispatch({
+    type: UserCartActionType.ADD_FAV_REQUEST,
+    payload: {payloadData: favItemsCopy},
+  });
+};
+
+const addToCart = (cartItems: any, item: any, dispatch: any) => {
+  let cartItemsCopy = cartItems;
+  const res = cartItems[item.id];
+  if (res) {
+    // cartItemsCopy[item.id].count += 1;
+    // delete cartItemsCopy[item.id];
+  } else {
+    cartItemsCopy[item.id] = item;
+    // cartItemsCopy[item.id].count = 1;
+  }
+  dispatch({
+    type: UserCartActionType.ADD_CART_REQUEST,
+    payload: {payloadData: cartItemsCopy},
+  });
+};
+
 function ProductScreen() {
   const route: any = useRoute();
   const navigation = useNavigation<productScreenProp>();
@@ -154,23 +188,7 @@ function ProductScreen() {
           icon={favItems[item.id] ? 'cards-heart' : 'cards-heart-outline'}
           iconColor="red"
           size={20}
-          onPress={() => {
-            let favItemsCopy = favItems;
-            const res = favItems[item.id];
-            if (res) {
-              delete favItemsCopy[item.id];
-            } else {
-              favItemsCopy[item.id] = true;
-            }
-            dispatch({
-              type: UserCartActionType.USER_CART_LOADING_REQUEST,
-              payload: true,
-            });
-            dispatch({
-              type: UserCartActionType.ADD_FAV_REQUEST,
-              payload: {payloadData: favItemsCopy},
-            });
-          }}
+          onPress={() => addFav(favItems, item, dispatch)}
         />
         <ProductImages imageList={item.images} />
       </View>
@@ -199,20 +217,7 @@ function ProductScreen() {
         <Button
           disabled={false}
           text={'Add To Cart'}
-          onPress={() => {
-            let cartItemsCopy = cartItems;
-            const res = cartItems[item.id];
-            if (res) {
-              cartItemsCopy[item.id].count += 1;
-            } else {
-              cartItemsCopy[item.id] = item;
-              cartItemsCopy[item.id].count = 1;
-            }
-            dispatch({
-              type: UserCartActionType.ADD_CART_REQUEST,
-              payload: {payloadData: cartItemsCopy},
-            });
-          }}
+          onPress={() => addToCart(cartItems, item, dispatch)}
           backgroundColor={CONSTANTS.COLORS.BLACK1}
           textColor={CONSTANTS.COLORS.SYSTEMS1}
           style={{
@@ -224,6 +229,7 @@ function ProductScreen() {
           disabled={false}
           text={'Buy Now'}
           onPress={() => {
+            addToCart(cartItems, item, dispatch);
             navigation.navigate('Shopping');
           }}
           backgroundColor={CONSTANTS.COLORS.SYSTEMS1}
@@ -267,14 +273,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleBoxContainer: {
-    height: '20%',
+    height: '18%',
     width: '100%',
     paddingLeft: 20,
     justifyContent: 'center',
   },
   ratingBoxContainer: {
     width: '100%',
-    height: '6%',
+    height: '4%',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -295,7 +301,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonContainer: {
-    height: '8%',
+    height: '10%',
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
@@ -305,10 +311,10 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
   detailsBoxContainer: {
-    height: '12%',
+    height: '14%',
     width: '100%',
     paddingLeft: 20,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignContent: 'center',
   },
   productImg: {
@@ -359,7 +365,7 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
   },
   buttonStyle: {
-    height: '100%',
+    height: 56,
     borderRadius: 20,
     borderWidth: 1,
   },

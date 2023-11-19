@@ -39,12 +39,46 @@ type ItemProps = {
   cartItems: any;
 };
 
+const addFav = (favItems: any, item: any, dispatch: any) => {
+  let favItemsCopy = favItems;
+  const res = favItems[item.id];
+  if (res) {
+    delete favItemsCopy[item.id];
+  } else {
+    favItemsCopy[item.id] = true;
+  }
+  dispatch({
+    type: UserCartActionType.USER_CART_LOADING_REQUEST,
+    payload: true,
+  });
+  dispatch({
+    type: UserCartActionType.ADD_FAV_REQUEST,
+    payload: {payloadData: favItemsCopy},
+  });
+};
+
+const addToCart = (cartItems: any, item: any, dispatch: any) => {
+  let cartItemsCopy = cartItems;
+  const res = cartItems[item.id];
+  if (res) {
+    // cartItemsCopy[item.id].count += 1;
+    // delete cartItemsCopy[item.id];
+  } else {
+    cartItemsCopy[item.id] = item;
+    // cartItemsCopy[item.id].count = 1;
+  }
+  dispatch({
+    type: UserCartActionType.ADD_CART_REQUEST,
+    payload: {payloadData: cartItemsCopy},
+  });
+};
+
 const Item = ({item, onPress, dispatch, favItems, cartItems}: ItemProps) => {
   return (
     <View style={styles.productItem}>
       <TouchableOpacity onPress={onPress} style={[styles.item]}>
         <Image
-          resizeMode="cover"
+          resizeMode="contain"
           style={styles.imageCover}
           source={{uri: item.thumbnail}}
         />
@@ -56,21 +90,11 @@ const Item = ({item, onPress, dispatch, favItems, cartItems}: ItemProps) => {
           iconColor={'red'}
           size={20}
           onPress={() => {
-            let favItemsCopy = favItems;
-            const res = favItems[item.id];
-            if (res) {
-              delete favItemsCopy[item.id];
-            } else {
-              favItemsCopy[item.id] = true;
-            }
             dispatch({
               type: UserCartActionType.USER_CART_LOADING_REQUEST,
               payload: true,
             });
-            dispatch({
-              type: UserCartActionType.ADD_FAV_REQUEST,
-              payload: {payloadData: favItemsCopy},
-            });
+            addFav(favItems, item, dispatch);
           }}
         />
         <View style={styles.itemBottomContainer}>
@@ -95,18 +119,7 @@ const Item = ({item, onPress, dispatch, favItems, cartItems}: ItemProps) => {
               iconColor={CONSTANTS.COLORS.SYSTEMS1}
               size={20}
               onPress={() => {
-                let cartItemsCopy = cartItems;
-                const res = cartItems[item.id];
-                if (res) {
-                  cartItemsCopy[item.id].count += 1;
-                } else {
-                  cartItemsCopy[item.id] = item;
-                  cartItemsCopy[item.id].count = 1;
-                }
-                dispatch({
-                  type: UserCartActionType.ADD_CART_REQUEST,
-                  payload: {payloadData: cartItemsCopy},
-                });
+                addToCart(cartItems, item, dispatch);
               }}
             />
           </View>
