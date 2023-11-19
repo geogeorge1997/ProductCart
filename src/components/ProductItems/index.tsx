@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect} from 'react';
 import {
   FlatList,
   Image,
@@ -76,23 +77,13 @@ const Item = ({item, onPress, dispatch, favItems, cartItems}: ItemProps) => {
           <View style={styles.priceNameContainer}>
             <Text
               variant={''}
-              style={{
-                color: CONSTANTS.COLORS.BLACK100,
-                fontFamily: 'manrope',
-                fontSize: 16,
-                fontWeight: 'bold',
-              }}
+              style={styles.black100Bold16}
               text={'$' + String(item.price)}
               numberOfLines={undefined}
             />
             <Text
               variant={''}
-              style={{
-                color: CONSTANTS.COLORS.BLACK20,
-                fontFamily: 'manrope',
-                fontSize: 14,
-                fontWeight: 'normal',
-              }}
+              style={styles.black20Normal14}
               text={item.brand}
               numberOfLines={undefined}
             />
@@ -177,7 +168,6 @@ const ProductItemList = () => {
         numColumns={2}
         renderItem={renderItem}
         keyExtractor={item => String(item.id)}
-        contentContainerStyle={{paddingBottom: 120}}
       />
     </SafeAreaView>
   );
@@ -237,10 +227,23 @@ const styles = StyleSheet.create({
   contentContainerStyle: {
     width: '100%',
     padding: 10,
+    paddingBottom: 80,
     gap: 10,
   },
   columnWrapperStyle: {
     justifyContent: 'space-around',
+  },
+  black100Bold16: {
+    color: CONSTANTS.COLORS.BLACK100,
+    fontFamily: 'manrope',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  black20Normal14: {
+    color: CONSTANTS.COLORS.BLACK20,
+    fontFamily: 'manrope',
+    fontSize: 14,
+    fontWeight: 'normal',
   },
 });
 

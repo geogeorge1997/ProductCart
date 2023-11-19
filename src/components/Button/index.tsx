@@ -31,7 +31,6 @@ const Button: React.FC<AnswerBoxProps> = ({
       disabled={disabled}
       mode="contained"
       textColor={textColor}
-      labelStyle={{fontSize: 18}}
       style={{
         ...styles.buttonStyle,
         backgroundColor: backgroundColor,

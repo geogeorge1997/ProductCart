@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/react-in-jsx-scope */
 import {useEffect, useState} from 'react';
 import {StyleSheet, View, SafeAreaView, Dimensions} from 'react-native';
@@ -5,7 +6,7 @@ import {StyleSheet, View, SafeAreaView, Dimensions} from 'react-native';
 import ProductItems from '../../components/ProductItems';
 import * as TestReduxActionType from '../../redux/TestRedux/TestReduxActionTypes';
 import * as CONSTANTS from '../../utils/contants';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import Text from '../../components/Text';
 import {IconButton} from 'react-native-paper';
 import TextInput from '../../components/TextInput';
@@ -16,13 +17,15 @@ function HomeScreen() {
 
   const [iconValue, setIconValue] = useState(1);
 
-  const [offerList, setOfferList] = useState([
+  const offerList = [
     'https://i.dummyjson.com/data/products/1/1.jpg',
     'https://i.dummyjson.com/data/products/1/2.jpg',
     'https://i.dummyjson.com/data/products/1/3.jpg',
     'https://i.dummyjson.com/data/products/1/4.jpg',
     'https://i.dummyjson.com/data/products/1/thumbnail.jpg',
-  ]);
+  ];
+
+  const padding20 = 20;
 
   const [textInput, setTextInput] = useState('');
 
@@ -38,18 +41,13 @@ function HomeScreen() {
       <View
         style={{
           ...styles.topContainer,
-          height: (3 * Dimensions.get('window').height) / 10,
+          height: (30 * Dimensions.get('window').height) / 100,
         }}>
-        <View style={{paddingTop: 20}} />
+        <View style={{paddingTop: padding20}} />
         <View style={styles.group1Container}>
           <Text
             variant={''}
-            style={{
-              color: CONSTANTS.COLORS.BLACK1,
-              fontFamily: 'manrope',
-              fontSize: 30,
-              fontWeight: 'bold',
-            }}
+            style={styles.blackBold30}
             text={'Hey, Rahul'}
             numberOfLines={1}
           />
@@ -61,10 +59,9 @@ function HomeScreen() {
             onPress={() => {}}
           />
         </View>
-        <View style={{paddingTop: 20}} />
+        <View style={{paddingTop: padding20}} />
         <View style={styles.textInputContainer}>
           <TextInput
-            colors={CONSTANTS.COLORS}
             keyboardType={false}
             multiline={false}
             maxLength={100}
@@ -73,34 +70,21 @@ function HomeScreen() {
             editable={true}
             textColor={CONSTANTS.COLORS.BLACK1}
             placeholderTextColor={CONSTANTS.COLORS.BLACK20}
-            style={{
-              backgroundColor: CONSTANTS.COLORS.SYSTEMS2,
-              borderRadius: 28,
-            }}
+            style={styles.borderRadius28}
             setTextInput={setTextInput}
           />
         </View>
-        <View style={{paddingTop: 20}} />
+        <View style={{paddingTop: padding20}} />
         <View style={styles.group1Container}>
           <Text
             variant={''}
-            style={{
-              color: CONSTANTS.COLORS.BLACK20,
-              fontFamily: 'manrope',
-              fontSize: 14,
-              fontWeight: 'bold',
-            }}
+            style={styles.black20Bold14}
             text={'DELIVERY TO'}
             numberOfLines={1}
           />
           <Text
             variant={''}
-            style={{
-              color: CONSTANTS.COLORS.BLACK20,
-              fontFamily: 'manrope',
-              fontSize: 14,
-              fontWeight: 'bold',
-            }}
+            style={styles.black20Bold14}
             text={'WITHIN'}
             numberOfLines={1}
           />
@@ -108,28 +92,18 @@ function HomeScreen() {
         <View style={styles.group1Container}>
           <Text
             variant={''}
-            style={{
-              color: CONSTANTS.COLORS.BLACK1,
-              fontFamily: 'manrope',
-              fontSize: 14,
-              fontWeight: 'normal',
-            }}
+            style={styles.black1Normal14}
             text={'Green Way 3000, Sylhet'}
             numberOfLines={1}
           />
           <Text
             variant={''}
-            style={{
-              color: CONSTANTS.COLORS.BLACK1,
-              fontFamily: 'manrope',
-              fontSize: 14,
-              fontWeight: 'normal',
-            }}
+            style={styles.black1Normal14}
             text={'1 Hour'}
             numberOfLines={1}
           />
         </View>
-        <View style={{paddingTop: 20}} />
+        <View style={{paddingTop: padding20}} />
       </View>
       <View style={styles.bannerContainer}>
         <OfferBox offerList={offerList} />
@@ -137,12 +111,7 @@ function HomeScreen() {
       <View style={styles.recommendationContainer}>
         <Text
           variant={''}
-          style={{
-            color: CONSTANTS.COLORS.BLACK100,
-            fontFamily: 'manrope',
-            fontSize: 30,
-            fontWeight: 'normal',
-          }}
+          style={styles.black100Normal30}
           text={'Recommended'}
           numberOfLines={1}
         />
@@ -372,6 +341,34 @@ const styles = StyleSheet.create({
     color: CONSTANTS.COLORS.BLACK45,
     fontFamily: 'manrope',
     fontSize: 10,
+    fontWeight: 'normal',
+  },
+  blackBold30: {
+    color: CONSTANTS.COLORS.BLACK1,
+    fontFamily: 'manrope',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  borderRadius28: {
+    backgroundColor: CONSTANTS.COLORS.SYSTEMS2,
+    borderRadius: 28,
+  },
+  black20Bold14: {
+    color: CONSTANTS.COLORS.BLACK20,
+    fontFamily: 'manrope',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  black1Normal14: {
+    color: CONSTANTS.COLORS.BLACK1,
+    fontFamily: 'manrope',
+    fontSize: 14,
+    fontWeight: 'normal',
+  },
+  black100Normal30: {
+    color: CONSTANTS.COLORS.BLACK100,
+    fontFamily: 'manrope',
+    fontSize: 30,
     fontWeight: 'normal',
   },
 });

@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect} from 'react';
 import {StyleSheet, View, Image, SafeAreaView} from 'react-native';
 
 import Button from '../../components/Button';
 
 import * as CONSTANTS from '../../utils/contants';
-import * as STYLES from '../../utils/styles';
 import {IconButton} from 'react-native-paper';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {type StackNavigationProp} from '@react-navigation/stack';
@@ -17,7 +17,14 @@ import {useDispatch, useSelector} from 'react-redux';
 
 type productScreenProp = StackNavigationProp<RootStackParamList, 'Product'>;
 
-const RatingContainer = ({item}) => {
+const padding6 = 6;
+const padding20 = 20;
+
+export interface RatingBoxProps {
+  item: any;
+}
+
+const RatingContainer: React.FC<RatingBoxProps> = ({item}) => {
   const rating = Math.round(item.rating);
   return (
     <>
@@ -66,15 +73,10 @@ const RatingContainer = ({item}) => {
               : 'https://img.icons8.com/color/40/000000/star.png',
         }}
       />
-      <View style={{paddingLeft: 5}} />
+      <View style={{paddingLeft: padding6}} />
       <Text
         variant={''}
-        style={{
-          color: CONSTANTS.COLORS.BLACK20,
-          fontFamily: 'manrope',
-          fontSize: 16,
-          fontWeight: 'normal',
-        }}
+        style={styles.black20Normal16}
         text={String(item.stock) + ' Reviews'}
         numberOfLines={1}
       />
@@ -83,10 +85,8 @@ const RatingContainer = ({item}) => {
 };
 
 function ProductScreen() {
-  const route = useRoute();
+  const route: any = useRoute();
   const navigation = useNavigation<productScreenProp>();
-
-  console.log('route - ', route.params?.item);
 
   const item = route.params?.item;
 
@@ -117,7 +117,6 @@ function ProductScreen() {
     <SafeAreaView style={styles.safeAreaViewStyle}>
       <View style={styles.headerContainer}>
         <IconButton
-          // style={styles.favIcon}
           icon="arrow-left"
           iconColor={CONSTANTS.COLORS.BLACK100}
           size={40}
@@ -126,7 +125,6 @@ function ProductScreen() {
           }}
         />
         <IconButton
-          // style={styles.favIcon}
           icon="shopping-outline"
           iconColor={CONSTANTS.COLORS.BLACK100}
           size={40}
@@ -136,23 +134,13 @@ function ProductScreen() {
       <View style={styles.titleBoxContainer}>
         <Text
           variant={''}
-          style={{
-            color: CONSTANTS.COLORS.BLACK100,
-            fontFamily: 'manrope',
-            fontSize: 50,
-            fontWeight: 'normal',
-          }}
+          style={styles.black100Normal50}
           text={item.brand}
           numberOfLines={1}
         />
         <Text
           variant={''}
-          style={{
-            color: CONSTANTS.COLORS.BLACK100,
-            fontFamily: 'manrope',
-            fontSize: 50,
-            fontWeight: 'bold',
-          }}
+          style={styles.black100Bold50}
           text={item.title}
           numberOfLines={1}
         />
@@ -167,7 +155,6 @@ function ProductScreen() {
           iconColor="red"
           size={20}
           onPress={() => {
-            console.log('favItems[item.id] - ', favItems[item.id]);
             let favItemsCopy = favItems;
             const res = favItems[item.id];
             if (res) {
@@ -190,27 +177,19 @@ function ProductScreen() {
       <View style={styles.priceBoxContainer}>
         <Text
           variant={''}
-          style={{
-            color: CONSTANTS.COLORS.SYSTEMS1,
-            fontFamily: 'manrope',
-            fontSize: 20,
-            fontWeight: 'bold',
-          }}
+          style={styles.system1Bold20}
           text={'$' + String(item.price)}
           numberOfLines={1}
         />
-        <View style={{paddingLeft: 20}} />
+        <View style={{paddingLeft: padding20}} />
         <Text
           variant={''}
           style={{
+            ...styles.black1Normal20,
             backgroundColor: CONSTANTS.COLORS.SYSTEMS1,
-            color: CONSTANTS.COLORS.BLACK1,
-            borderRadius: 6,
-            fontFamily: 'manrope',
-            fontSize: 20,
-            fontWeight: 'normal',
-            paddingLeft: 6,
-            paddingRight: 6,
+            borderRadius: padding6,
+            paddingLeft: padding6,
+            paddingRight: padding6,
           }}
           text={String(item.discountPercentage) + ' OFF'}
           numberOfLines={1}
@@ -237,10 +216,8 @@ function ProductScreen() {
           backgroundColor={CONSTANTS.COLORS.BLACK1}
           textColor={CONSTANTS.COLORS.SYSTEMS1}
           style={{
-            height: '100%',
+            ...styles.buttonStyle,
             borderColor: CONSTANTS.COLORS.SYSTEMS1,
-            borderRadius: 20,
-            borderWidth: 1,
           }}
         />
         <Button
@@ -252,34 +229,22 @@ function ProductScreen() {
           backgroundColor={CONSTANTS.COLORS.SYSTEMS1}
           textColor={CONSTANTS.COLORS.BLACK1}
           style={{
-            height: '100%',
+            ...styles.buttonStyle,
             borderColor: CONSTANTS.COLORS.SYSTEMS1,
-            borderRadius: 20,
-            borderWidth: 1,
           }}
         />
       </View>
       <View style={styles.detailsBoxContainer}>
         <Text
           variant={''}
-          style={{
-            color: CONSTANTS.COLORS.BLACK90,
-            fontFamily: 'manrope',
-            fontSize: 18,
-            fontWeight: 'normal',
-          }}
+          style={styles.black90Normal18}
           text={'Details'}
           numberOfLines={1}
         />
-        <View style={{paddingBottom: 6}} />
+        <View style={{paddingBottom: padding6}} />
         <Text
           variant={''}
-          style={{
-            color: CONSTANTS.COLORS.BLACK45,
-            fontFamily: 'manrope',
-            fontSize: 14,
-            fontWeight: 'normal',
-          }}
+          style={styles.black45Normal14}
           text={item.description}
           numberOfLines={undefined}
         />
@@ -362,6 +327,53 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     zIndex: 1,
+  },
+  black20Normal16: {
+    color: CONSTANTS.COLORS.BLACK20,
+    fontFamily: 'manrope',
+    fontSize: 16,
+    fontWeight: 'normal',
+  },
+  black100Normal50: {
+    color: CONSTANTS.COLORS.BLACK100,
+    fontFamily: 'manrope',
+    fontSize: 50,
+    fontWeight: 'normal',
+  },
+  black100Bold50: {
+    color: CONSTANTS.COLORS.BLACK100,
+    fontFamily: 'manrope',
+    fontSize: 50,
+    fontWeight: 'bold',
+  },
+  system1Bold20: {
+    color: CONSTANTS.COLORS.SYSTEMS1,
+    fontFamily: 'manrope',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  black1Normal20: {
+    color: CONSTANTS.COLORS.BLACK1,
+    fontFamily: 'manrope',
+    fontSize: 20,
+    fontWeight: 'normal',
+  },
+  buttonStyle: {
+    height: '100%',
+    borderRadius: 20,
+    borderWidth: 1,
+  },
+  black90Normal18: {
+    color: CONSTANTS.COLORS.BLACK90,
+    fontFamily: 'manrope',
+    fontSize: 18,
+    fontWeight: 'normal',
+  },
+  black45Normal14: {
+    color: CONSTANTS.COLORS.BLACK45,
+    fontFamily: 'manrope',
+    fontSize: 14,
+    fontWeight: 'normal',
   },
 });
 

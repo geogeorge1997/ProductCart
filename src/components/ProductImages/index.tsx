@@ -1,7 +1,15 @@
 import React from 'react';
 import {View, FlatList, StyleSheet, Dimensions, Image} from 'react-native';
 
-const RenderItem = ({item}) => {
+export interface RenderItemProps {
+  item: any;
+}
+
+export interface ProductImagesProps {
+  imageList: any;
+}
+
+const RenderItem: React.FC<RenderItemProps> = ({item}) => {
   return (
     <View style={{...styles.item, width: Dimensions.get('window').width}}>
       <Image
@@ -13,7 +21,7 @@ const RenderItem = ({item}) => {
   );
 };
 
-const ProductImages = ({imageList}) => {
+const ProductImages: React.FC<ProductImagesProps> = ({imageList}) => {
   return (
     <View style={styles.container}>
       <FlatList

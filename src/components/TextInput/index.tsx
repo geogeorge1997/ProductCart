@@ -12,7 +12,6 @@ import {Searchbar as PaperTextInput} from 'react-native-paper';
 // number of lines in TextInput
 
 interface TextInputProps {
-  colors: any;
   keyboardType: boolean;
   multiline: boolean;
   maxLength: number;
@@ -27,7 +26,6 @@ interface TextInputProps {
 
 // istanbul ignore next
 const TextInput: React.FC<TextInputProps> = ({
-  colors,
   keyboardType,
   multiline,
   maxLength,

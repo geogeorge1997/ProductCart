@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
@@ -7,12 +8,28 @@ import {
   FlatList,
 } from 'react-native';
 
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Text from '../Text';
 
 import * as CONSTANTS from '../../utils/contants';
 
-const ProductCard = ({item, onIncrement, onDecrement}) => {
+const padding4 = 4;
+
+export interface ProductCardProps {
+  item: any;
+  onIncrement: any;
+  onDecrement: any;
+}
+
+export interface SelectedItemsProps {
+  setSubTotalPrice: any;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({
+  item,
+  onIncrement,
+  onDecrement,
+}) => {
   return (
     <View style={styles.productCard}>
       <Image source={{uri: item.thumbnail}} style={styles.productImage} />
@@ -39,14 +56,14 @@ const ProductCard = ({item, onIncrement, onDecrement}) => {
             numberOfLines={1}
           />
         </TouchableOpacity>
-        <View style={{paddingRight: 4}} />
+        <View style={{paddingRight: padding4}} />
         <Text
           style={styles.amountText}
           variant={''}
           text={item.count}
           numberOfLines={1}
         />
-        <View style={{paddingRight: 4}} />
+        <View style={{paddingRight: padding4}} />
         <TouchableOpacity style={styles.amountButton} onPress={onIncrement}>
           <Text
             style={styles.amountButtonText}
@@ -60,8 +77,8 @@ const ProductCard = ({item, onIncrement, onDecrement}) => {
   );
 };
 
-const SelectedItems = ({setSubTotalPrice}) => {
-  const dispatch = useDispatch();
+const SelectedItems: React.FC<SelectedItemsProps> = ({setSubTotalPrice}) => {
+  // const dispatch = useDispatch();
 
   const cartItems: any = useSelector(
     (state: any) => state.userCartReducer.cartSuccess,
@@ -83,10 +100,10 @@ const SelectedItems = ({setSubTotalPrice}) => {
     setSubTotalPrice(subTotalPrice);
   }, []);
 
-  const handleIncrement = item => {
+  const handleIncrement = (item: any) => {
     let subTotal = 0;
     setProducts(
-      products.map(product => {
+      products.map((product: any) => {
         if (product.id === item.id) {
           subTotal += product.price * (product.count + 1);
           return {...product, count: product.count + 1};
@@ -99,10 +116,10 @@ const SelectedItems = ({setSubTotalPrice}) => {
     setSubTotalPrice(subTotal);
   };
 
-  const handleDecrement = item => {
+  const handleDecrement = (item: any) => {
     let subTotal = 0;
     setProducts(
-      products.map(product => {
+      products.map((product: any) => {
         if (product.id === item.id) {
           subTotal += product.price * (product.count - 1);
           return {...product, count: Math.max(0, product.count - 1)};
@@ -119,7 +136,7 @@ const SelectedItems = ({setSubTotalPrice}) => {
     return <View style={styles.ItemSeparatorComponentStyle} />;
   };
 
-  const renderProductItem = ({item}) => (
+  const renderProductItem = ({item}: {item: any}) => (
     <ProductCard
       item={item}
       onIncrement={() => handleIncrement(item)}
@@ -135,7 +152,7 @@ const SelectedItems = ({setSubTotalPrice}) => {
         renderItem={renderProductItem}
         ItemSeparatorComponent={myItemSeparator}
         keyExtractor={item => item.id.toString()}
-        contentContainerStyle={{paddingHorizontal: 16, paddingBottom: 20}}
+        contentContainerStyle={styles.contentContainerStyle}
       />
     </View>
   );
@@ -224,6 +241,7 @@ const styles = StyleSheet.create({
     paddingVertical: 1,
     backgroundColor: CONSTANTS.COLORS.BLACK20,
   },
+  contentContainerStyle: {paddingHorizontal: 16, paddingBottom: 20},
 });
 
 export default SelectedItems;

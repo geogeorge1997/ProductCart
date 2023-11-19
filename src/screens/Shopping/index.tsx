@@ -52,23 +52,13 @@ function ShoppingScreen() {
         <View style={styles.shoppingDetailsTextLineContainer}>
           <Text
             variant={''}
-            style={{
-              color: CONSTANTS.COLORS.BLACK45,
-              fontFamily: 'manrope',
-              fontSize: 14,
-              fontWeight: 'normal',
-            }}
+            style={styles.black45Normal14}
             text={'Subtotal'}
             numberOfLines={1}
           />
           <Text
             variant={''}
-            style={{
-              color: CONSTANTS.COLORS.BLACK100,
-              fontFamily: 'manrope',
-              fontSize: 14,
-              fontWeight: 'normal',
-            }}
+            style={styles.black100Normal14}
             text={'$' + String(subTotalPrice)}
             numberOfLines={1}
           />
@@ -76,23 +66,13 @@ function ShoppingScreen() {
         <View style={styles.shoppingDetailsTextLineContainer}>
           <Text
             variant={''}
-            style={{
-              color: CONSTANTS.COLORS.BLACK45,
-              fontFamily: 'manrope',
-              fontSize: 14,
-              fontWeight: 'normal',
-            }}
+            style={styles.black45Normal14}
             text={'Delivery'}
             numberOfLines={1}
           />
           <Text
             variant={''}
-            style={{
-              color: CONSTANTS.COLORS.BLACK100,
-              fontFamily: 'manrope',
-              fontSize: 14,
-              fontWeight: 'normal',
-            }}
+            style={styles.black100Normal14}
             text={'$' + String(deliveryPrice)}
             numberOfLines={1}
           />
@@ -100,23 +80,13 @@ function ShoppingScreen() {
         <View style={styles.shoppingDetailsTextLineContainer}>
           <Text
             variant={''}
-            style={{
-              color: CONSTANTS.COLORS.BLACK45,
-              fontFamily: 'manrope',
-              fontSize: 14,
-              fontWeight: 'normal',
-            }}
+            style={styles.black45Normal14}
             text={'Total'}
             numberOfLines={1}
           />
           <Text
             variant={''}
-            style={{
-              color: CONSTANTS.COLORS.BLACK100,
-              fontFamily: 'manrope',
-              fontSize: 14,
-              fontWeight: 'normal',
-            }}
+            style={styles.black100Normal14}
             text={'$' + String(totalPrice)}
             numberOfLines={1}
           />
@@ -174,6 +144,18 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 10,
+  },
+  black45Normal14: {
+    color: CONSTANTS.COLORS.BLACK45,
+    fontFamily: 'manrope',
+    fontSize: 14,
+    fontWeight: 'normal',
+  },
+  black100Normal14: {
+    color: CONSTANTS.COLORS.BLACK100,
+    fontFamily: 'manrope',
+    fontSize: 14,
+    fontWeight: 'normal',
   },
 });
 
