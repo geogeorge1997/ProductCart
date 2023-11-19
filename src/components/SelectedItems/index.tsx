@@ -23,6 +23,7 @@ export interface ProductCardProps {
 
 export interface SelectedItemsProps {
   setSubTotalPrice: any;
+  setCartItemsNum: any;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -77,7 +78,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   );
 };
 
-const SelectedItems: React.FC<SelectedItemsProps> = ({setSubTotalPrice}) => {
+const SelectedItems: React.FC<SelectedItemsProps> = ({
+  setCartItemsNum,
+  setSubTotalPrice,
+}) => {
   // const dispatch = useDispatch();
 
   const cartItems: any = useSelector(
@@ -88,16 +92,19 @@ const SelectedItems: React.FC<SelectedItemsProps> = ({setSubTotalPrice}) => {
 
   useEffect(() => {
     let subTotalPrice = 0;
+    let cartItemsNum = 0;
     const array = [];
     for (const key in cartItems) {
       if (cartItems.hasOwnProperty(key)) {
         cartItems[key].count = 1;
         array.push(cartItems[key]);
         subTotalPrice += cartItems[key].price * cartItems[key].count;
+        cartItemsNum += 1;
       }
     }
     setProducts(array);
     setSubTotalPrice(subTotalPrice);
+    setCartItemsNum(cartItemsNum);
   }, []);
 
   const handleIncrement = (item: any) => {

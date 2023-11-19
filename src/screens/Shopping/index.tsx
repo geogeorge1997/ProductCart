@@ -20,6 +20,7 @@ function ShoppingScreen() {
   const [subTotalPrice, setSubTotalPrice] = useState(0);
   const [deliveryPrice, setDeliveryPrice] = useState(10);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [cartItemsNum, setCartItemsNum] = useState(0);
 
   useEffect(() => {
     if (subTotalPrice > 100) {
@@ -44,9 +45,18 @@ function ShoppingScreen() {
             navigation.goBack();
           }}
         />
+        <Text
+          variant={''}
+          style={styles.titleText}
+          text={`Shopping Cart(${cartItemsNum})`}
+          numberOfLines={1}
+        />
       </View>
       <View style={styles.selectItemsContainer}>
-        <SelectedItems setSubTotalPrice={setSubTotalPrice} />
+        <SelectedItems
+          setCartItemsNum={setCartItemsNum}
+          setSubTotalPrice={setSubTotalPrice}
+        />
       </View>
       <View style={styles.shoppingDetailsContainer}>
         <View style={styles.shoppingDetailsTextLineContainer}>
@@ -114,7 +124,7 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     paddingLeft: 20,
   },
@@ -156,6 +166,12 @@ const styles = StyleSheet.create({
     fontFamily: 'manrope',
     fontSize: 14,
     fontWeight: 'normal',
+  },
+  titleText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: CONSTANTS.COLORS.BLACK100,
+    fontFamily: 'manrope',
   },
 });
 
